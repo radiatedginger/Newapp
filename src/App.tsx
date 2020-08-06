@@ -1,26 +1,48 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import MemberList from "./component/MemberList";
+import {ApplicationState} from "./store";
+import {Store} from "redux";
+import {Provider} from "react-redux";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {ConnectedRouter} from "connected-react-router";
+import {History} from "history";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface MainProps{
+    store: Store<ApplicationState>;
+    history: History;
+}
+
+const App: React.FC<MainProps> = ({store, history})=>{
+    return (
+        <Provider store={store}>
+            <ConnectedRouter history={history}>
+                <Router>
+                    <div className="App">
+                        <Switch>
+                            <Route exact path={'/'} render={(props) =>
+                                <MemberList/>}
+                            /> </Switch>
+                    </div>
+                </Router>
+            </ConnectedRouter>
+        </Provider>
+    );
 }
 
 export default App;
+
+/*
+<Provider store={store}>
+        <ConnectedRouter history={history}>
+          <Router>
+            <div className="App">
+              <Switch>
+                <Route exact path={'/'} render={(props) =>
+                         <MemberList/>}
+                /> </Switch>
+            </div>
+          </Router>
+        </ConnectedRouter>
+      </Provider>
+ */

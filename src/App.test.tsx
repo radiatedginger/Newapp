@@ -1,9 +1,11 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import {mount, ReactWrapper} from "enzyme";
+import App from "./App";
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+describe('App Test',()=>{
+  test('renders',()=>{
+    let subject: ReactWrapper;
+    subject = mount(<App/>)
+    expect(subject.exists()).toBeTruthy();
+  })
+})
